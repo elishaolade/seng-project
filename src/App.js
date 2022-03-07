@@ -22,6 +22,7 @@ const App = () => {
   const [platnium, setPlatnium] = useState([]);
   const [gold, setGold] = useState([]);
   const [silver, setSilver] = useState([]);
+  const [searchRecord, setSearchRecord] = useState(null);
   useEffect(()=>{
     setCustomers(CUSTOMERS);
     const platniumCustomers = customers.filter(customer => customer.points >= 5000);
@@ -52,6 +53,7 @@ const App = () => {
     const copy = [...customers];
     let rec = search(copy, name);
     console.log(rec);
+    setSearchRecord(rec);
     setName(name => '');
   }
   // Event handler for finding max
@@ -105,27 +107,13 @@ const App = () => {
             <div className="mb-2">
               <div><strong>Max: </strong>{ max.points }</div>
               <div><strong>Avg: </strong>{ average }</div>
+              <div className="my-3">
+               {searchRecord && <div className="">
+                  <h6 className="search-text">{`Found: ${searchRecord.last_name}, ${searchRecord.first_name}`}</h6>
+                 </div>}
             </div>
-            <div className="my-3">
-               <div>Platnium</div>
-                <div className="d-block">
-                  { platnium.map(customer => {
-                    <div>{ customer.id }</div>
-                  }) }
-                </div>
-                <div>Gold</div>
-                <div className="d-block">
-                  { gold.map(customer => {
-                    <div>{ customer.id }</div>
-                  }) }
-                </div>
-                <div>Silver</div>
-                <div className="d-block">
-                  { silver.map(customer => {
-                    <div>{ customer.id }</div>
-                  }) }
-                </div>
             </div>
+
           </div>
           <div className="row">
             <div className="col-6">
